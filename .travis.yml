@@ -1,0 +1,8 @@
+language: csharp
+solution: FoodHazardAnalysis.sln
+dotnet: 2.1.504
+script:
+    - dotnet restore
+after_success:
+    - sh .travis/deploy_dockerhub.sh
+    - test “$TRAVIS_BRANCH” = “master” && test "$TRAVIS_PULL_REQUEST" = "false" && sh .travis/deploy_heroku.sh
